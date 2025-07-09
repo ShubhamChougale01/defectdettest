@@ -1,0 +1,81 @@
+# Defect Detection Test
+
+This project is an iOS application for detecting defects using machine learning models. It leverages CoreML and YOLOv8 models converted from PyTorch for object detection tasks.
+
+## Project Structure
+
+```
+defectdettest/
+    BoundingBoxView.swift
+    ContentView.swift
+    defect_detect.pt
+    DefectDetectionModel 1.13.42 PM.mlmodel
+    DefectDetectionModel.mlmodel 13-19-54-434.mlmodel
+    DefectDetectionModel.mlmodel 14-54-58-343.mlmodel
+    DefectDetectionModel.mlmodel 17-52-10-979.mlmodel
+    DefectDetectionModel.mlmodel 18-08-29-712.mlmodel
+    defectdettestApp.swift
+    Item.swift
+    Assets.xcassets/
+    defect_detect/
+    defect_detect.mlpackage/
+    ...
+defectdettest.xcodeproj/
+    ...
+defectdettestTests/
+    ...
+defectdettestUITests/
+```
+
+## Features
+
+- **Object Detection**: Detects defects such as cracks, mold, and damage using YOLOv8 models.
+- **Image Processing**: Loads and processes images for prediction.
+- **Fallback Mechanism**: Uses default class labels if model metadata is unavailable.
+
+## Key Files
+
+- [`defectdettestApp.swift`](defectdettest/defectdettestApp.swift): Entry point for the application.
+- [`ContentView.swift`](defectdettest/ContentView.swift): Contains the main UI and logic for loading models and running predictions.
+- [`defect_detect.pt`](defectdettest/defect_detect.pt): PyTorch model file used for training and conversion.
+- [`DefectDetectionModel.mlmodel`](defectdettest/DefectDetectionModel.mlmodel 18-08-29-712.mlmodel): CoreML model for defect detection.
+- [`defect_detect.mlpackage`](defectdettest/defect_detect.mlpackage/): Contains metadata and specifications for the CoreML model.
+
+## Setup
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd defectdettest
+   ```
+
+2. Open the project in Xcode:
+   ```bash
+   open defectdettest.xcodeproj
+   ```
+
+3. Build and run the project on a simulator or device.
+
+## Usage
+
+- Select an image to run predictions.
+- View detected defects with bounding boxes and labels.
+
+## Dependencies
+
+- **CoreML**: Used for running machine learning models.
+- **SwiftUI**: For building the user interface.
+
+## Model Information
+
+- **YOLOv8**: Object detection model converted from PyTorch to CoreML.
+- **Input Size**: 640x640 RGB images.
+- **Output**: Bounding boxes, class labels, and confidence scores.
+
+## License
+
+This project uses models licensed under AGPL-3.0. See [Ultralytics License](https://ultralytics.com/license) for more details.
+
+## Author
+
+Created by Shubham on 04/06/25.
