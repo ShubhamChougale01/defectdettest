@@ -1,81 +1,98 @@
-# Defect Detection Test
+# 🛠️ Defect Detection Test – iOS App
 
-This project is an iOS application for detecting defects using machine learning models. It leverages CoreML and YOLOv8 models converted from PyTorch for object detection tasks.
+An iOS application that detects real-world structural defects (like **cracks**, **mold**, and **water damage**) using on-device **YOLOv8 + CoreML** models.
+Built with **SwiftUI**, powered by **CoreML**, and optimized for real-time detection.
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```
 defectdettest/
-    BoundingBoxView.swift
-    ContentView.swift
-    defect_detect.pt
-    DefectDetectionModel 1.13.42 PM.mlmodel
-    DefectDetectionModel.mlmodel 13-19-54-434.mlmodel
-    DefectDetectionModel.mlmodel 14-54-58-343.mlmodel
-    DefectDetectionModel.mlmodel 17-52-10-979.mlmodel
-    DefectDetectionModel.mlmodel 18-08-29-712.mlmodel
-    defectdettestApp.swift
-    Item.swift
-    Assets.xcassets/
-    defect_detect/
-    defect_detect.mlpackage/
-    ...
-defectdettest.xcodeproj/
-    ...
-defectdettestTests/
-    ...
-defectdettestUITests/
+│
+├── BoundingBoxView.swift
+├── ContentView.swift
+├── defect_detect.pt                        # PyTorch model used for training
+├── DefectDetectionModel.mlmodel           # CoreML models (converted from YOLOv8)
+├── defect_detect.mlpackage/               # Final .mlpackage for inference
+├── defectdettestApp.swift                 # App entry point
+├── Assets.xcassets/
+├── Item.swift
+│
+├── defectdettest.xcodeproj/               # Xcode project
+├── defectdettestTests/                    # Unit tests
+└── defectdettestUITests/                  # UI tests
 ```
 
-## Features
+---
 
-- **Object Detection**: Detects defects such as cracks, mold, and damage using YOLOv8 models.
-- **Image Processing**: Loads and processes images for prediction.
-- **Fallback Mechanism**: Uses default class labels if model metadata is unavailable.
+## 🚀 Features
 
-## Key Files
+* 🔍 **Real-Time Object Detection** using YOLOv8 (CoreML conversion)
+* 🖼️ **Image Selection & Processing** from gallery or camera
+* 🔁 **Fallback Class Labels** if model metadata is unavailable
+* 🧠 Works completely **on-device** – no server required
 
-- [`defectdettestApp.swift`](defectdettest/defectdettestApp.swift): Entry point for the application.
-- [`ContentView.swift`](defectdettest/ContentView.swift): Contains the main UI and logic for loading models and running predictions.
-- [`defect_detect.pt`](defectdettest/defect_detect.pt): PyTorch model file used for training and conversion.
-- [`DefectDetectionModel.mlmodel`](defectdettest/DefectDetectionModel.mlmodel 18-08-29-712.mlmodel): CoreML model for defect detection.
-- [`defect_detect.mlpackage`](defectdettest/defect_detect.mlpackage/): Contains metadata and specifications for the CoreML model.
+---
 
-## Setup
+## 🔑 Key Files
 
-1. Clone the repository:
+| File                           | Description                                       |
+| ------------------------------ | ------------------------------------------------- |
+| `defectdettestApp.swift`       | SwiftUI app entry point                           |
+| `ContentView.swift`            | UI logic for model selection and image prediction |
+| `defect_detect.pt`             | YOLOv8 PyTorch model before CoreML conversion     |
+| `DefectDetectionModel.mlmodel` | CoreML-ready YOLOv8 model                         |
+| `defect_detect.mlpackage`      | Optimized model package for iOS inference         |
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repository**
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/defectdettest.git
    cd defectdettest
    ```
 
-2. Open the project in Xcode:
+2. **Open the Xcode project**
+
    ```bash
    open defectdettest.xcodeproj
    ```
 
-3. Build and run the project on a simulator or device.
+3. **Build & run** on a simulator or physical device.
 
-## Usage
+---
 
-- Select an image to run predictions.
-- View detected defects with bounding boxes and labels.
+## 🧪 Usage
 
-## Dependencies
+1. Launch the app 📱
+2. Select or capture an image 📸
+3. The model runs detection and shows **bounding boxes + labels** 🧠
+4. Tap boxes for **defect details** (optional extension)
 
-- **CoreML**: Used for running machine learning models.
-- **SwiftUI**: For building the user interface.
+---
 
-## Model Information
+## 📦 Dependencies
 
-- **YOLOv8**: Object detection model converted from PyTorch to CoreML.
-- **Input Size**: 640x640 RGB images.
-- **Output**: Bounding boxes, class labels, and confidence scores.
+* **CoreML** – Model inference on iOS
+* **SwiftUI** – Declarative UI framework
+* *(Optional)*: AVFoundation for video support
 
-## License
+---
 
-This project uses models licensed under AGPL-3.0. See [Ultralytics License](https://ultralytics.com/license) for more details.
+## 🧠 Model Details
 
-## Author
+* **Model**: YOLOv8 (converted to CoreML)
+* **Input Size**: `640x640` RGB
+* **Output**: Bounding Boxes + Class Labels + Confidence Scores
+* **Defect Classes**: Cracks, Water Damage, Mold, Pipe Leak, etc.
 
-Created by Shubham on 04/06/25.
+---
+
+## 📜 License
+
+Model is licensed under **AGPL-3.0**.
+Please refer to [Ultralytics License](https://ultralytics.com/license) for full details.
