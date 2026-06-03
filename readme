@@ -1,98 +1,163 @@
-# 🛠️ Defect Detection Test – iOS App
+  ---
+  # 🛠️ Defect Detection Test – iOS App
 
-An iOS application that detects real-world structural defects (like **cracks**, **mold**, and **water damage**) using on-device **YOLOv8 + CoreML** models.
-Built with **SwiftUI**, powered by **CoreML**, and optimized for real-time detection.
+  > **Detect structural defects in real-world surfaces — on-device, offline, instantly.**
 
----
+  [![Platform](https://img.shields.io/badge/Platform-iOS%2016%2B-black?style=flat-square&logo=apple)](https://developer.apple.com)
+  [![Model](https://img.shields.io/badge/Model-YOLOv8%20%2B%20CoreML-orange?style=flat-square)](https://ultralytics.com)
+  [![UI](https://img.shields.io/badge/UI-SwiftUI-blue?style=flat-square&logo=swift)](https://developer.apple.com/xcode/swiftui)
+  [![License](https://img.shields.io/badge/License-AGPL--3.0-red?style=flat-square)](https://ultralytics.com/license)
 
-## 📂 Project Structure
+  ---
 
-```
-defectdettest/
-│
-├── BoundingBoxView.swift
-├── ContentView.swift
-├── defect_detect.pt                        # PyTorch model used for training
-├── DefectDetectionModel.mlmodel           # CoreML models (converted from YOLOv8)
-├── defect_detect.mlpackage/               # Final .mlpackage for inference
-├── defectdettestApp.swift                 # App entry point
-├── Assets.xcassets/
-├── Item.swift
-│
-├── defectdettest.xcodeproj/               # Xcode project
-├── defectdettestTests/                    # Unit tests
-└── defectdettestUITests/                  # UI tests
-```
+  ## What Is This?
 
----
+  An iOS application that detects real-world structural defects — **cracks, mold, water damage, pipe leaks** — using a YOLOv8 model
+  converted to CoreML and running entirely on-device.
 
-## 🚀 Features
+  Pick a photo or use the camera. The model draws bounding boxes with class labels and confidence scores in real time. No network
+  calls, no API keys, no cloud dependency.
 
-* 🔍 **Real-Time Object Detection** using YOLOv8 (CoreML conversion)
-* 🖼️ **Image Selection & Processing** from gallery or camera
-* 🔁 **Fallback Class Labels** if model metadata is unavailable
-* 🧠 Works completely **on-device** – no server required
+  ---
 
----
+  ## 🚀 Features
 
-## 🔑 Key Files
+  | Feature | What It Does | Why It Matters |
+  |---|---|---|
+  | 🔍 **Real-Time Detection** | YOLOv8 via CoreML on every frame | Instant results with no latency |
+  | 🖼️ **Camera + Gallery Input** | Live capture or photo library | Works in the field or from archived images |
+  | 🏷️ **Bounding Boxes + Labels** | Overlays class name and confidence % | Shows exactly what was found and where |
+  | 🔁 **Fallback Class Labels** | Hardcoded labels if model metadata is missing | Prevents crashes across model versions |
+  | 🧠 **Fully On-Device** | CoreML inference — no server required | Works offline, no data leaves the device |
+  | 📦 **Optimized .mlpackage** | Ships as `.mlpackage` for runtime | Faster startup, better memory management |
 
-| File                           | Description                                       |
-| ------------------------------ | ------------------------------------------------- |
-| `defectdettestApp.swift`       | SwiftUI app entry point                           |
-| `ContentView.swift`            | UI logic for model selection and image prediction |
-| `defect_detect.pt`             | YOLOv8 PyTorch model before CoreML conversion     |
-| `DefectDetectionModel.mlmodel` | CoreML-ready YOLOv8 model                         |
-| `defect_detect.mlpackage`      | Optimized model package for iOS inference         |
+  ---
 
----
+  ## ⚙️ Quick Setup (3 Steps)
 
-## ⚙️ Setup Instructions
+  ### Step 1 — Clone the repository
 
-1. **Clone the repository**
+  ```bash
+  git clone https://github.com/your-username/defectdettest.git
+  cd defectdettest
 
-   ```bash
-   git clone https://github.com/your-username/defectdettest.git
-   cd defectdettest
-   ```
+  Step 2 — Open the Xcode project
 
-2. **Open the Xcode project**
+  open defectdettest.xcodeproj
 
-   ```bash
-   open defectdettest.xcodeproj
-   ```
+  Step 3 — Build & Run
 
-3. **Build & run** on a simulator or physical device.
+  Select a simulator or physical iPhone and press ⌘R.
 
----
+  ▎ Tip: Use a physical device for real camera access and accurate inference speed — CoreML runs significantly faster on-device than
+  ▎ in the simulator.
 
-## 🧪 Usage
+  ---
+  🧪 Usage
 
-1. Launch the app 📱
-2. Select or capture an image 📸
-3. The model runs detection and shows **bounding boxes + labels** 🧠
-4. Tap boxes for **defect details** (optional extension)
+  Launch the app
+        │
+        ▼
+  Select or capture an image 📸
+        │
+        ▼
+  CoreML runs YOLOv8 inference on-device
+        │
+        ├── Bounding box coordinates
+        ├── Class label  (Crack / Mold / Water Damage / Pipe Leak…)
+        └── Confidence score (0.0 – 1.0)
+        │
+        ▼
+  BoundingBoxView overlays results on your image 🧠
 
----
+  ---
+  📂 Project Structure
 
-## 📦 Dependencies
+  defectdettest/
+  │
+  ├── defectdettestApp.swift              # App entry point — SwiftUI lifecycle
+  ├── ContentView.swift                   # UI logic for model selection and image prediction
+  ├── BoundingBoxView.swift               # Draws bounding boxes + labels over image
+  │
+  ├── defect_detect.pt                    # YOLOv8 PyTorch weights (training artifact, not used at runtime)
+  ├── DefectDetectionModel.mlmodel        # CoreML model — legacy format, kept for reference
+  ├── defect_detect.mlpackage/            # Active model used at runtime (.mlpackage preferred)
+  │
+  ├── Assets.xcassets/                    # App icons and image assets
+  ├── Item.swift                          # Data model helpers
+  │
+  ├── defectdettest.xcodeproj/            # Xcode project config
+  ├── defectdettestTests/                 # Unit tests
+  └── defectdettestUITests/               # UI automation tests
 
-* **CoreML** – Model inference on iOS
-* **SwiftUI** – Declarative UI framework
-* *(Optional)*: AVFoundation for video support
+  ---
+  🔑 Key Files
 
----
+  ┌──────────────────────────────┬─────────────────────────────────────────────────────┐
+  │             File             │                     Description                     │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ defectdettestApp.swift       │ SwiftUI app entry point                             │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ ContentView.swift            │ UI logic for model selection and image prediction   │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ BoundingBoxView.swift        │ Renders bounding boxes and class labels over images │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ defect_detect.pt             │ YOLOv8 PyTorch model before CoreML conversion       │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ DefectDetectionModel.mlmodel │ CoreML-ready YOLOv8 model (legacy)                  │
+  ├──────────────────────────────┼─────────────────────────────────────────────────────┤
+  │ defect_detect.mlpackage      │ Optimized model package used at runtime             │
+  └──────────────────────────────┴─────────────────────────────────────────────────────┘
 
-## 🧠 Model Details
+  ---
+  🧠 Model Details
 
-* **Model**: YOLOv8 (converted to CoreML)
-* **Input Size**: `640x640` RGB
-* **Output**: Bounding Boxes + Class Labels + Confidence Scores
-* **Defect Classes**: Cracks, Water Damage, Mold, Pipe Leak, etc.
+  ┌────────────────┬────────────────────────────────────────────────────┐
+  │    Property    │                       Value                        │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Architecture   │ YOLOv8 (Ultralytics)                               │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Conversion     │ PyTorch → CoreML (.mlpackage)                      │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Input Size     │ 640 × 640 RGB                                      │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Output         │ Bounding Boxes + Class Labels + Confidence Scores  │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Inference      │ On-device via Apple Neural Engine / GPU            │
+  ├────────────────┼────────────────────────────────────────────────────┤
+  │ Defect Classes │ Cracks, Water Damage, Mold, Pipe Leak (extendable) │
+  └────────────────┴────────────────────────────────────────────────────┘
 
----
+  ---
+  📦 Dependencies
 
-## 📜 License
+  - CoreML — on-device model inference (Apple framework, no install needed)
+  - SwiftUI — declarative UI framework (Apple framework, no install needed)
+  - (Optional) AVFoundation — for live video stream detection
 
-Model is licensed under **AGPL-3.0**.
-Please refer to [Ultralytics License](https://ultralytics.com/license) for full details.
+  No third-party Swift packages required.
+
+  ---
+  ❓ FAQ
+
+  Does this work offline?
+  Yes — everything runs on-device via CoreML. No internet connection needed after installation.
+
+  Can I add more defect classes?
+  Yes. Retrain YOLOv8 with your classes, re-export with yolo export model=defect_detect.pt format=coreml, and replace
+  defect_detect.mlpackage.
+
+  Why are there two model files (.mlmodel and .mlpackage)?
+  .mlpackage is the newer, preferred format with faster load times and better hardware utilization. The .mlmodel is a legacy artifact
+  kept for reference. The app uses .mlpackage.
+
+  Will it work on the iOS Simulator?
+  It builds and runs, but the camera is unavailable. Use a physical device for real detection and accurate performance benchmarks.
+
+  ---
+  📜 License
+
+  Model is licensed under AGPL-3.0.
+  See Ultralytics License (https://ultralytics.com/license) for full details.
+
+  App source code is available under MIT.
